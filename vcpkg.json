@@ -1,0 +1,13 @@
+{
+	"$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+	"name": "test-project",
+	"version-semver": "1.0.0",
+	"builtin-baseline": "01ff40a106fe2f0549b89f89fb4c7c821bfb3c13",
+	"dependencies": [
+		{
+			"name": "spdlog",
+			"version>=": "1.10.0",
+			"default-features": false
+		}
+  ]
+}

@@ -1,0 +1,29 @@
+name: CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  linux:
+    name: Linux-x86
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Configure
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET="x64-linux"
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build
+  win32:
+    name: Win32
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Configure
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET="x86-windows" -A Win32
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build
