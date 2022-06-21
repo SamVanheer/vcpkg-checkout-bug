@@ -26,7 +26,12 @@ jobs:
       - name: Configure
         run: cmake -B ${{github.workspace}}/build -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET="x86-windows" -A Win32
         continue-on-error: true
+      - name: Read vcpkg log
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: "${{github.workspace}}/build/vcpkg-manifest-install.log"
       - name: Print vcpkg log
-        run: type "${{github.workspace}}/build/vcpkg-manifest-install.log"
+        run: echo "${{ steps.package.outputs.content }}"
       - name: Build
         run: cmake --build ${{github.workspace}}/build
