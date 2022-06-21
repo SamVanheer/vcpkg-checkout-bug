@@ -25,5 +25,8 @@ jobs:
           submodules: recursive
       - name: Configure
         run: cmake -B ${{github.workspace}}/build -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET="x86-windows" -A Win32
+        continue-on-error: true
+      - name: Print vcpkg log
+        run: type "${{github.workspace}}/build/vcpkg-manifest-install.log"
       - name: Build
         run: cmake --build ${{github.workspace}}/build
